@@ -51,6 +51,10 @@ set noswapfile
 
 set spell spelllang=en_gb
 set number
+set noswapfile
+
+set pastetoggle=<F2>
+set clipboard=unnamed
 
 let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat='pdf'
