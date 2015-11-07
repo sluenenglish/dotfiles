@@ -14,7 +14,6 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'scrooloose/nerdtree'
-Bundle 'jcf/vim-latex'
 Plugin 'altercation/vim-colors-solarized'
 Bundle 'klen/python-mode'
 Bundle 'davidhalter/jedi-vim'
@@ -56,11 +55,8 @@ set noswapfile
 set pastetoggle=<F3>
 set clipboard=unnamed
 
-let g:tex_flavor='latex'
-let g:Tex_DefaultTargetFormat='pdf'
-let g:Tex_ViewRule_pdf = 'evince'
-let g:Tex_MultipleCompileFormats = ''
-let g:Tex_CompileRule_pdf = 'latexmk -pdf %'
+nmap <leader>ll :w !latexmk --xelatex % <cr>
+nmap <leader>lv :w !evince %:r.pdf <cr>
 
 set tabstop=4
 set shiftwidth=4
