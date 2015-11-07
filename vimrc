@@ -55,8 +55,8 @@ set noswapfile
 set pastetoggle=<F3>
 set clipboard=unnamed
 
-nmap <leader>ll :w !latexmk --xelatex % <cr>
-nmap <leader>lv :w !evince %:r.pdf <cr>
+nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
+nmap <leader>lv :!evince %:r.pdf <cr>
 
 set tabstop=4
 set shiftwidth=4
