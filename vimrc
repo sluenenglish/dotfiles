@@ -53,7 +53,7 @@ set spell spelllang=en_gb
 set number
 set noswapfile
 
-set pastetoggle=<F2>
+set pastetoggle=<F3>
 set clipboard=unnamed
 
 let g:tex_flavor='latex'
