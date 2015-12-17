@@ -1,11 +1,11 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/sam/.oh-my-zsh
+export ZSH=/home/samle/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
- ZSH_THEME="robbyrussell"
+ ZSH_THEME="norm"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -96,3 +96,5 @@ alias rm='rm -i'
 if [[ $TERM == xterm ]]; then
         TERM=xterm-256color
 fi
+
+alias ipythonremote="ipython notebook --no-browser --port=8484"
