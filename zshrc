@@ -98,3 +98,5 @@ if [[ $TERM == xterm ]]; then
 fi
 
 alias ipythonremote="ipython notebook --no-browser --port=8484"
+
+alias issh="ssh -L localhost:8888:localhost:8484 maths"

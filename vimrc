@@ -18,6 +18,7 @@ Plugin 'altercation/vim-colors-solarized'
 Bundle 'klen/python-mode'
 Bundle 'davidhalter/jedi-vim'
 Plugin 'bling/vim-airline'
+Plugin 'junegunn/goyo.vim'
 
 set rtp+=~/.vim/bundle/vim-latex-suite
 " All of your Plugins must be added before the following line
@@ -37,10 +38,18 @@ filetype plugin indent on    " required
 "
 "
 "
+autocmd Filetype ruby call SetRubyOptions()
+function SetTexOptions()
+    set background=light
+    Goyo
+    Goyo 100
+    Goyo x90
+endfunction
 syntax enable
 set background=dark
 set t_Co=256
 colorscheme solarized
+autocmd BufNewFile,BufRead *.tex call SetTexOptions() 
 
 map <F2> :NERDTreeToggle<CR>
 imap jk <Esc>
