@@ -96,3 +96,5 @@ alias rm='rm -i'
 if [[ $TERM == xterm ]]; then
         TERM=xterm-256color
 fi
+
+alias issh="ssh -L localhost:8888:localhost:8484 maths"
