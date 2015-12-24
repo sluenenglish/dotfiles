@@ -1,3 +1,11 @@
+if !exists("g:os")
+    if has("win64") || has("win32") || has("win16")
+        let g:os = "Windows"
+    else
+        let g:os = substitute(system('uname'), '\n', '', '')
+    endif
+endif
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -37,14 +45,13 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "
 "
-"
-autocmd Filetype ruby call SetRubyOptions()
 function SetTexOptions()
     set background=light
     Goyo
     Goyo 100
     Goyo x90
 endfunction
+
 syntax enable
 set background=dark
 set t_Co=256
@@ -64,8 +71,16 @@ set noswapfile
 set pastetoggle=<F3>
 set clipboard=unnamed
 
-nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
-nmap <leader>lv :!evince %:r.pdf <cr>
+if g:os=="Linux"
+    let mapleader = "\"
+    nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
+    nmap <leader>lv :!evince %:r.pdf <cr>
+elseif  g:os=="Darwin"
+    let mapleader = ","
+    nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
+    nmap <leader>lv :!open %:r.pdf <cr>
+endif
+
 
 set tabstop=4
 set shiftwidth=4
