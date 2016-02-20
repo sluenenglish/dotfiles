@@ -23,7 +23,8 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'scrooloose/nerdtree'
 Plugin 'altercation/vim-colors-solarized'
-Bundle 'klen/python-mode'
+Plugin 'chriskempson/base16-vim'
+"Bundle 'klen/python-mode'
 Bundle 'davidhalter/jedi-vim'
 Plugin 'bling/vim-airline'
 Plugin 'junegunn/goyo.vim'
@@ -46,21 +47,20 @@ filetype plugin indent on    " required
 "
 "
 function SetTexOptions()
-    set background=light
     Goyo
     Goyo 100
     Goyo x90
 endfunction
 
 syntax enable
+"let base16colorspace=256
 set background=dark
-set t_Co=256
-colorscheme solarized
+colorscheme base16-default
 autocmd BufNewFile,BufRead *.tex call SetTexOptions() 
 
 map <F2> :NERDTreeToggle<CR>
 imap jk <Esc>
-map <F5> :w !python <cr>
+map <leader>r :w !python <cr>
 
 set noswapfile
 
