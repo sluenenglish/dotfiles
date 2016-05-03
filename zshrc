@@ -1,12 +1,12 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/sam/.oh-my-zsh
+export ZSH=/home/sam/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
- ZSH_THEME="agnoster"
+ZSH_THEME="robbyrussell"
+ #ZSH_THEME="agnoster"
  DEFAULT_USER="sam"
 
 
@@ -60,6 +60,8 @@ plugins=(git, python, pip, vi-mode)
 #export PATH=$PATH:/usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/
 # export MANPATH="/usr/local/man:$MANPATH"
 
+export GOPATH=$HOME/gopath
+export PATH=$GOPATH:$GOPATH/bin:$PATH
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -91,10 +93,8 @@ source $ZSH/oh-my-zsh.sh
 #
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
-source /usr/local/bin/virtualenvwrapper.sh
+source /home/sam/.local/bin/virtualenvwrapper.sh
 
-alias tmux="tmux -2"
-alias t="todo.sh -d /Users/sam/.config/todo/todo.cfg"
 
 alias rm='rm -i'
 
@@ -110,5 +110,8 @@ export keytimeout=1
 
 bindkey -M viins 'jk' vi-cmd-mode
 
-archey
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
 #source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh

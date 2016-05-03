@@ -27,7 +27,9 @@ Plugin 'chriskempson/base16-vim'
 "Bundle 'klen/python-mode'
 Bundle 'davidhalter/jedi-vim'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'junegunn/goyo.vim'
+Plugin 'christoomey/vim-tmux-navigator'
 
 set rtp+=~/.vim/bundle/vim-latex-suite
 " All of your Plugins must be added before the following line
@@ -46,17 +48,14 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "
 "
-function SetTexOptions()
-    Goyo
-    Goyo 100
-    Goyo x90
-endfunction
-
 syntax enable
-"let base16colorspace=256
+let base16colorspace=256
+colorscheme base16-ocean
+let g:airline_theme='base16_ocean'
 set background=dark
-colorscheme base16-default
-autocmd BufNewFile,BufRead *.tex call SetTexOptions() 
+
+"
+let mapleader=","
 
 map <F2> :NERDTreeToggle<CR>
 imap jk <Esc>
@@ -71,15 +70,8 @@ set noswapfile
 set pastetoggle=<F3>
 set clipboard=unnamed
 
-if g:os=="Linux"
-    let mapleader = "\"
-    nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
-    nmap <leader>lv :!evince %:r.pdf <cr>
-elseif  g:os=="Darwin"
-    let mapleader = ","
-    nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
-    nmap <leader>lv :!open %:r.pdf <cr>
-endif
+nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
+nmap <leader>lv :!evince %:r.pdf & <cr>
 
 
 set tabstop=4
