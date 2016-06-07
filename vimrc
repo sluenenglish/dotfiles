@@ -24,14 +24,16 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
-"Bundle 'klen/python-mode'
 Bundle 'davidhalter/jedi-vim'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'junegunn/goyo.vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-flake8'
+Bundle 'takac/vim-hardtime'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'tmhedberg/SimpylFold'
 
-set rtp+=~/.vim/bundle/vim-latex-suite
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -48,42 +50,82 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "
 "
+""""""""""""""""""""""""""""""""
+"Colour
+""""""""""""""""""""""""""""""""
 syntax enable
 let base16colorspace=256
 colorscheme base16-ocean
 let g:airline_theme='base16_ocean'
 set background=dark
 
-"
+set encoding=utf-8
+set spell spelllang=en_gb
+
 let mapleader=","
+imap jk <Esc>
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
+
+set number
+call NumberToggle()
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+
+au BufNewFile,BufRead *.js, *.html, *.css |
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
+
+set noswapfile
+set pastetoggle=<F3>
+set splitbelow
+set splitright
 
 map <F2> :NERDTreeToggle<CR>
-imap jk <Esc>
-map <leader>r :w !python <cr>
-
-set noswapfile
-
-set spell spelllang=en_gb
-set number
-set noswapfile
-
-set pastetoggle=<F3>
-set clipboard=unnamed
-
+map <leader>rr :w !python <cr>
 nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
 nmap <leader>lv :!evince %:r.pdf & <cr>
+nnoremap <C-n> :call NumberToggle()<cr>
 
+let g:hardtime_default_on = 1
 
-set tabstop=4
-set shiftwidth=4
-set expandtab
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-"let g:pymode_folding = 0
-let g:pymode_lint = 0
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
-let g:pymode_lint_ignore = "E0602"
-let g:pymode_options_max_line_length = 100
-let g:pymode_lint_options_pep8 =
-    \ {'max_line_length': g:pymode_options_max_line_length}
-let g:pymode_rope = 0
-set laststatus=2
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+"nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
+let g:ctrlp_map = '<c-p>'
+
+nnoremap <Leader>b :CtrlPBuffer <cr>
+nnoremap <Leader>h :CtrlP ~<cr>
+
+let g:SimpylFold_docstring_preview=1
+let g:SimpylFold_fold_import = 0
+nnoremap <space> za
