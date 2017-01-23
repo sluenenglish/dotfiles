@@ -7,7 +7,7 @@ export ZSH=/home/sam/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
  #ZSH_THEME="agnoster"
- DEFAULT_USER="sam"
+DEFAULT_USER="sam"
 
 
 # Uncomment the following line to use case-sensitive completion.
@@ -52,12 +52,13 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git, python, pip, vi-mode)
+plugins=(git, python, pip, vi-mode, tmuxinator, z)#, fabric)
 
 # User configuration
 
 #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-#export PATH=$PATH:/usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/
+#export PATH=$PATH:~/bin/:~/anaconda2/bin:~/.local/bin
+export PATH=$PATH:~/bin/:~/.local/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export GOPATH=$HOME/gopath
@@ -68,11 +69,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='vim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -101,9 +102,6 @@ alias rm='rm -i'
 alias ipythonremote="ipython notebook --no-browser --port=8484"
 alias issh="ssh -L localhost:8888:localhost:8484"
 
-base16_shell="$HOME/.config/base16-shell/base16-default.dark.sh"
-[[ -s $base16_shell ]] && source $base16_shell
-
 
 bindkey -v
 export keytimeout=1
@@ -111,7 +109,33 @@ export keytimeout=1
 bindkey -M viins 'jk' vi-cmd-mode
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-ocean.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
-#source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+bindkey "^R" history-incremental-search-backward
+
+alias mux='tmuxinator'
+
+alias gffs="git flow feature start"
+alias gfff="git flow feature finish"
+alias v="vagrant"
+alias vv="cd /srv/datasatellite/"
+
+#./bin/z/z.sh
+
+# fish && exit
+#
+export DATASATELLITE_SECRET_PATH="~/Dropbox\ \(Atheon\)/DataTeam/DataSatellite/Website/secret"
+
+pkill xcape
+
+spare_modifier="ISO_Level5_Shift"
+xmodmap -e "keycode 65 = $spare_modifier"
+xmodmap -e "keycode any = space"
+xmodmap -e "keycode any = backslash"
+xmodmap -e "keycode any = slash"
+xmodmap -e "keycode 94  = Shift_L"
+xmodmap -e "keycode 108 = ISO_Level3_Shift"
+
+xcape -e "$spare_modifier=space"
+xcape -e 'Alt_L=BackSpace;Shift_L=backslash;Shift_R=slash'

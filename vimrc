@@ -24,14 +24,25 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
-"Bundle 'klen/python-mode'
 Bundle 'davidhalter/jedi-vim'
-Plugin 'bling/vim-airline'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'junegunn/goyo.vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-flake8'
+Bundle 'takac/vim-hardtime'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tell-k/vim-autopep8'
+"Plugin 'scrooloose/syntastic'
+Plugin 'janko-m/vim-test'
+Plugin '907th/vim-auto-save'
 
-set rtp+=~/.vim/bundle/vim-latex-suite
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -48,42 +59,113 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "
 "
+""""""""""""""""""""""""""""""""
+"Colour
+""""""""""""""""""""""""""""""""
 syntax enable
 let base16colorspace=256
 colorscheme base16-ocean
 let g:airline_theme='base16_ocean'
+let airline_theme='base16_ocean'
 set background=dark
 
-"
+set encoding=utf-8
+set spell spelllang=en_gb
+
 let mapleader=","
+imap jk <Esc>
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
+
+set number
+call NumberToggle()
+
+set tabstop=4 |
+set softtabstop=4 |
+set shiftwidth=4 |
+set expandtab |
+set fileformat=unix |
+set autoindent
+
+
+set noswapfile
+set pastetoggle=<F3>
+set splitbelow
+set splitright
 
 map <F2> :NERDTreeToggle<CR>
-imap jk <Esc>
-map <leader>r :w !python <cr>
-
-set noswapfile
-
-set spell spelllang=en_gb
-set number
-set noswapfile
-
-set pastetoggle=<F3>
-set clipboard=unnamed
-
+map <leader>rr :w !python <cr>
 nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
 nmap <leader>lv :!evince %:r.pdf & <cr>
+nnoremap <C-n> :call NumberToggle()<cr>
 
+let NERDTreeIgnore = ['\.pyc$']
 
-set tabstop=4
-set shiftwidth=4
-set expandtab
+let g:hardtime_default_on = 0
 
-"let g:pymode_folding = 0
-let g:pymode_lint = 0
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
-let g:pymode_lint_ignore = "E0602"
-let g:pymode_options_max_line_length = 100
-let g:pymode_lint_options_pep8 =
-    \ {'max_line_length': g:pymode_options_max_line_length}
-let g:pymode_rope = 0
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+"nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
+let g:ctrlp_map = '<c-p>'
+set wildignore+=*.pyc 
+
+nnoremap <Leader>b :CtrlPBuffer <cr>
+nnoremap <Leader>h :CtrlP ~<cr>
+
+let g:SimpylFold_docstring_preview=1
+let g:SimpylFold_fold_import = 0
+nnoremap <space> za
+
 set laststatus=2
+set statusline+="%{fugitive#statusline()}"
+
+let g:autopep8_max_line_length=100
+let g:autopep8_disable_show_diff=1
+
+"nmap <leader>d :YcmCompleter GoToDefinition <cr>
+"nmap <leader>n :YcmCompleter GoToReferences <cr>
+"let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<C-j>', '<C-SPACE>']
+"let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<C-k>']
+"
+let &colorcolumn="80,".join(range(100,999),",")
+
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
+
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+
+let g:auto_save = 1  " enable AutoSave on Vim startup
+
+let g:jedi#auto_close_doc = 1
+let g:jedi#show_call_signatures = 2
