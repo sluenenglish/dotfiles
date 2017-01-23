@@ -87,12 +87,21 @@ endfunc
 set number
 call NumberToggle()
 
-set tabstop=4 |
-set softtabstop=4 |
-set shiftwidth=4 |
-set expandtab |
-set fileformat=unix |
-set autoindent
+
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+
+au BufNewFile,BufRead *.js, *.html, *.css |
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
 
 
 set noswapfile
@@ -105,6 +114,7 @@ map <leader>rr :w !python <cr>
 nmap <leader>ll :w <cr> :!latexmk -xelatex % <cr>
 nmap <leader>lv :!evince %:r.pdf & <cr>
 nnoremap <C-n> :call NumberToggle()<cr>
+
 
 let NERDTreeIgnore = ['\.pyc$']
 
@@ -143,11 +153,7 @@ set statusline+="%{fugitive#statusline()}"
 let g:autopep8_max_line_length=100
 let g:autopep8_disable_show_diff=1
 
-"nmap <leader>d :YcmCompleter GoToDefinition <cr>
-"nmap <leader>n :YcmCompleter GoToReferences <cr>
-"let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<C-j>', '<C-SPACE>']
-"let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<C-k>']
-"
+
 let &colorcolumn="80,".join(range(100,999),",")
 
 nmap <silent> <leader>t :TestNearest<CR>
@@ -156,16 +162,9 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
 
 let g:auto_save = 1  " enable AutoSave on Vim startup
 
 let g:jedi#auto_close_doc = 1
 let g:jedi#show_call_signatures = 2
+
