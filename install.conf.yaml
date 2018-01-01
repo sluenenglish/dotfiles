@@ -1,7 +1,19 @@
 - clean: ['~']
 
 - link:
-    ~/.vimrc: vimrc
-    ~/.gitconfig: gitconfig
-    ~/.zshrc: zshrc
-    ~/.tmux.conf: tmux.conf
+    ~/.vimrc:
+      path: vimrc
+      force: true
+    ~/.gitconfig:
+      path: gitconfig
+      force: true
+    ~/.zshrc:
+      path: zshrc
+      force: true
+    ~/.tmux.conf:
+      path: tmux.conf
+      force: true
+    ~/.ideavimrc:
+      path: ideavimrc
+      force: true
+
