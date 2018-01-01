@@ -52,7 +52,7 @@ DEFAULT_USER="sam"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git, python, pip, vi-mode, tmuxinator, z)#, fabric)
+plugins=(git python pip vi-mode)#, fabric)
 
 # User configuration
 
