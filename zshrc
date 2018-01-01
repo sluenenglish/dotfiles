@@ -139,3 +139,11 @@ xmodmap -e "keycode 108 = ISO_Level3_Shift"
 
 xcape -e "$spare_modifier=space"
 xcape -e 'Alt_L=BackSpace;Shift_L=backslash;Shift_R=slash'
+
+# Pull Request
+pull_request(){
+         URL=$(git remote -v | grep -Po "(?<=:)(.*)(?=\.git \(fetch\))")
+         BRANCH=$(git rev-parse --abbrev-ref HEAD)
+         google-chrome "https://bitbucket.org/$URL/pull-requests/new?source=$URL $BRANCH"
+}
+alias gpr="pull_request"
